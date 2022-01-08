@@ -4,5 +4,9 @@ node_modules
 .vercel
 .output
 
+# Build Files
 public/build
 api/_build
+
+# Development Only files
+app/tailwind.css
