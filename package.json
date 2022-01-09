@@ -10,7 +10,8 @@
     "dev": "run-p dev:css dev:remix",
     "dev:css": "tailwindcss -i ./styles/tailwind.css -o ./app/tailwind.css --watch",
     "dev:remix": "remix dev",
-    "serve": "remix-serve api/_build",
+    "start": "remix-serve build",
+    "deploy": "fly deploy --remote-only",
     "postinstall": "remix setup node"
   },
   "dependencies": {

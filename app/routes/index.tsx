@@ -1,9 +1,10 @@
-import { HeadersFunction, LoaderFunction, useLoaderData } from 'remix';
+import { HeadersFunction, useLoaderData } from 'remix';
 import { Layout } from '~/components/Layout';
 import { PostSummary } from '~/components/PostSummary';
-import { getPosts, IPostSummary } from '~/lib/posts';
+import { getPosts } from '~/lib/posts';
+import { InferRemixLoaderType, LoaderFunctionArgs } from '~/lib/types';
 
-export const loader: LoaderFunction = async () => {
+export const loader = async (ctx: LoaderFunctionArgs) => {
   const posts = await getPosts();
 
   return posts;
@@ -16,7 +17,7 @@ export const headers: HeadersFunction = () => {
 };
 
 export default function Index() {
-  const posts = useLoaderData<IPostSummary[]>();
+  const posts = useLoaderData<InferRemixLoaderType<typeof loader>>();
 
   return (
     <Layout>

@@ -1,22 +1,28 @@
-import { LoaderFunction, Outlet, redirect, useLoaderData } from 'remix';
+import { redirect, useLoaderData } from 'remix';
 import { Layout } from '~/components/Layout';
 import { PostDetails } from '~/components/PostDetails';
 import { PostTags } from '~/components/PostTags';
 import { ScrollProgressBar } from '~/components/ScrollProgressBar';
-import { getPost, IPost } from '~/lib/posts';
+import { getPost } from '~/lib/posts';
+import { InferRemixLoaderType, LoaderFunctionArgs } from '~/lib/types';
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader = async ({ params }: LoaderFunctionArgs) => {
   if (!params || !params.slug) {
     redirect('/404');
   }
 
-  const post = await getPost(params.slug as string);
-
-  return post;
+  try {
+    return await getPost(params.slug as string);
+  } catch {
+    throw new Response('Not Found', {
+      status: 404,
+    });
+  }
 };
 
 export default function PostLayout() {
-  const post = useLoaderData<IPost>();
+  const post = useLoaderData<InferRemixLoaderType<typeof loader>>();
+
   return (
     <Layout>
       <ScrollProgressBar />

@@ -1,9 +1,24 @@
-import type { LinkDescriptor, MetaFunction } from 'remix';
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from 'remix';
+import { FC } from 'react';
+import {
+  ErrorBoundaryComponent,
+  Links,
+  LinksFunction,
+  LiveReload,
+  Meta,
+  MetaFunction,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useCatch,
+} from 'remix';
 import { defaultMetadata } from '~/config/meta';
+import { Layout } from './components/Layout';
+import { MyLink } from './components/Link';
 import styles from './tailwind.css';
 
-export function links(): LinkDescriptor[] {
+const isDev = process.env.NODE_ENV === 'development';
+
+export const links: LinksFunction = () => {
   return [
     {
       rel: 'stylesheet',
@@ -23,13 +38,13 @@ export function links(): LinkDescriptor[] {
       href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap',
     },
   ];
-}
+};
 
 export const meta: MetaFunction = () => {
   return { title: defaultMetadata.title, description: defaultMetadata.description };
 };
 
-export default function App() {
+const HtmlWrapper: FC = ({ children }) => {
   return (
     <html lang="en">
       <head>
@@ -47,12 +62,60 @@ export default function App() {
         <Links />
       </head>
       <body className="min-h-screen bg-white">
-        <Outlet />
+        {children}
 
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === 'development' && <LiveReload />}
+        {isDev && <LiveReload />}
       </body>
     </html>
   );
+};
+
+export default function App() {
+  return (
+    <HtmlWrapper>
+      <Outlet />
+    </HtmlWrapper>
+  );
 }
+
+export const CatchBoundary = () => {
+  const caught = useCatch();
+
+  return (
+    <HtmlWrapper>
+      <Layout>
+        <div className="mb-4">
+          <h2>Error: {caught.status}</h2>
+          <p>{caught.statusText}</p>
+        </div>
+
+        <MyLink to="/">Go back to a known land! 🌄</MyLink>
+      </Layout>
+    </HtmlWrapper>
+  );
+};
+
+export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+  return (
+    <HtmlWrapper>
+      <Layout>
+        <div className="mb-4 space-y-2">
+          <h2>Oops. There was an issue on our end.</h2>
+
+          {isDev && (
+            <>
+              <p>{error.message}</p>
+              <pre className="p-4 font-mono text-xs bg-slate-300 w-100 whitespace-pre-wrap">
+                {error.stack}
+              </pre>
+            </>
+          )}
+        </div>
+
+        <MyLink to="/">Go back to a known land! 🌄</MyLink>
+      </Layout>
+    </HtmlWrapper>
+  );
+};

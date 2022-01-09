@@ -2,14 +2,14 @@ import { FC } from 'react';
 import { Container } from './Container';
 import { Footer } from './Footer';
 import { Header } from './Header';
-import { Link } from './Link';
+import { MyLink } from './Link';
 
 const Subheader = () => {
   return (
     <Container>
       <div className="flex space-x-2">
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
+        <MyLink to="/">Home</MyLink>
+        <MyLink to="/about">About</MyLink>
       </div>
     </Container>
   );

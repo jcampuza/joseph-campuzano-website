@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'fs/promises';
 import matter from 'gray-matter';
 import path from 'path';
 import { mdToHtml } from './mdToHtml';
@@ -23,8 +23,8 @@ export type IPostSummary = Omit<IPost, 'html'>;
 
 const postsDir = path.join(process.cwd(), '_posts');
 
-const parsePostFromFile = async (file: string): Promise<IPost> => {
-  const rawContent = fs.readFileSync(path.join(postsDir, file), 'utf-8');
+const parsePostFromFileContents = async (file: string): Promise<IPost> => {
+  const rawContent = await fs.readFile(path.join(postsDir, file), 'utf-8');
   const slug = file.replace(/\.md$/, '');
   const { content, data } = matter(rawContent);
   const title = data.title as string;
@@ -48,19 +48,19 @@ const parsePostFromFile = async (file: string): Promise<IPost> => {
 };
 
 const getPostsFiles = () => {
-  return fs.readdirSync(postsDir);
+  return fs.readdir(postsDir);
 };
 
 export const getPosts = async () => {
-  const files = getPostsFiles();
-  const posts = await Promise.all(files.map((file) => parsePostFromFile(file)));
+  const files = await getPostsFiles();
+  const posts = await Promise.all(files.map((file) => parsePostFromFileContents(file)));
 
   return posts
     .map((post) => omit(post, 'html') as IPostSummary)
     .sort((a, b) => b.timestamp - a.timestamp);
 };
 
-export const getPost = async (slug: string) => {
+export const getPost = (slug: string) => {
   const fileName = `${slug}.md`;
-  return parsePostFromFile(fileName);
+  return parsePostFromFileContents(fileName);
 };

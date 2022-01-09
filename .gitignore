@@ -6,7 +6,7 @@ node_modules
 
 # Build Files
 public/build
-api/_build
+_build
 
 # Development Only files
 app/tailwind.css
