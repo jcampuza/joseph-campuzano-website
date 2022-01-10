@@ -11,7 +11,7 @@ import {
   ScrollRestoration,
   useCatch,
 } from 'remix';
-import { defaultMetadata, getDefaultRouteMetadata } from '~/config/meta';
+import { defaultMetadata } from '~/config/meta';
 import { Layout } from './components/Layout';
 import { MyLink } from './components/Link';
 import styles from './tailwind.css';

@@ -8,7 +8,7 @@ export const Header: FCWithClassName = (props) => {
     <header
       className={cn(
         'bg-gradient-to-tl from-pink-900 to-indigo-900 text-white shadow-md',
-        props.className
+        props.className,
       )}
     >
       <Container>

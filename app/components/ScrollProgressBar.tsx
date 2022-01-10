@@ -3,7 +3,7 @@ import { throttle } from '../lib/debounce-throttle';
 import { useIsMounted } from '../lib/useIsMounted';
 
 const getScrollPercentage = (
-  el: HTMLElement | null = document.scrollingElement as HTMLElement | null
+  el: HTMLElement | null = document.scrollingElement as HTMLElement | null,
 ) => {
   if (!el) {
     return 0;
