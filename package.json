@@ -7,7 +7,7 @@
     "build": "run-s build:css build:remix",
     "build:remix": "remix build",
     "build:css": "tailwindcss -i ./styles/tailwind.css -o ./app/tailwind.css --minify",
-    "deploy:deploy": "fly deploy --remote-only",
+    "build:deploy": "fly deploy --remote-only",
     "dev": "run-p dev:css dev:remix",
     "dev:css": "tailwindcss -i ./styles/tailwind.css -o ./app/tailwind.css --watch",
     "dev:remix": "remix dev",
