@@ -9,3 +9,16 @@ export const defaultMetadata: Meta = {
   title: 'Joseph Campuzano',
   image: '/favicon-32x32.png',
 };
+
+export const getDefaultRouteMetadata = ({
+  titlePrefix,
+  description,
+}: {
+  titlePrefix?: string;
+  description?: string;
+}) => {
+  return {
+    title: titlePrefix ? `${titlePrefix} | ${defaultMetadata.title}` : defaultMetadata.title,
+    description: description ?? defaultMetadata.description,
+  };
+};

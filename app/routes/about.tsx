@@ -1,4 +1,13 @@
+import { MetaFunction } from 'remix';
 import { Layout } from '~/components/Layout';
+import { getDefaultRouteMetadata } from '~/config/meta';
+
+export const meta: MetaFunction = () => {
+  return getDefaultRouteMetadata({
+    titlePrefix: 'About',
+    description: `About Joseph Campuzano`,
+  });
+};
 
 export default function About() {
   return (

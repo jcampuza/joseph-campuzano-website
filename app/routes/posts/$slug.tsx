@@ -1,16 +1,13 @@
-import { redirect, useLoaderData } from 'remix';
+import { MetaFunction, useLoaderData } from 'remix';
 import { Layout } from '~/components/Layout';
 import { PostDetails } from '~/components/PostDetails';
 import { PostTags } from '~/components/PostTags';
 import { ScrollProgressBar } from '~/components/ScrollProgressBar';
+import { getDefaultRouteMetadata } from '~/config/meta';
 import { getPost } from '~/lib/posts';
 import { InferRemixLoaderType, LoaderFunctionArgs } from '~/lib/types';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  if (!params || !params.slug) {
-    redirect('/404');
-  }
-
   try {
     return await getPost(params.slug as string);
   } catch {
@@ -18,6 +15,13 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
       status: 404,
     });
   }
+};
+
+export const meta: MetaFunction = ({ data }: { data: InferRemixLoaderType<typeof loader> }) => {
+  return getDefaultRouteMetadata({
+    titlePrefix: data.title,
+    description: data.preview,
+  });
 };
 
 export default function PostLayout() {
@@ -28,7 +32,7 @@ export default function PostLayout() {
       <ScrollProgressBar />
 
       <article>
-        <header className="">
+        <header>
           <h1 className="font-mono text-2xl">{post.title}</h1>
 
           <PostDetails

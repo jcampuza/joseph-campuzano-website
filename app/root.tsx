@@ -11,7 +11,7 @@ import {
   ScrollRestoration,
   useCatch,
 } from 'remix';
-import { defaultMetadata } from '~/config/meta';
+import { defaultMetadata, getDefaultRouteMetadata } from '~/config/meta';
 import { Layout } from './components/Layout';
 import { MyLink } from './components/Link';
 import styles from './tailwind.css';
@@ -20,28 +20,40 @@ const isDev = process.env.NODE_ENV === 'development';
 
 export const links: LinksFunction = () => {
   return [
-    {
-      rel: 'stylesheet',
-      href: styles,
-    },
-    {
-      rel: 'preconnect',
-      href: 'https://fonts.googleapis.com',
-    },
-    {
-      rel: 'preconnect',
-      href: 'https://fonts.gstatic.com',
-      crossOrigin: 'anonymous',
-    },
+    // Styles
+    { rel: 'stylesheet', href: styles },
+
+    // Fonts
+    { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+    { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
     {
       rel: 'stylesheet',
       href: 'https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap',
     },
+
+    // Icons
+    { rel: 'icon', href: '/favicon.ico' },
+    { rel: 'shortcut icon', href: '/favicon.ico' },
+    { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+    { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
   ];
 };
 
-export const meta: MetaFunction = () => {
-  return { title: defaultMetadata.title, description: defaultMetadata.description };
+export const meta: MetaFunction = ({ location, data }) => {
+  return {
+    title: defaultMetadata.title,
+    description: defaultMetadata.description,
+
+    // Twitter
+    'twitter:card': 'summary',
+    'twitter:creator': 'CampuzanoJoe',
+
+    // OG
+    'og:url': `https://josephcampuzano.com${location.pathname}`,
+    'og:image': defaultMetadata.image,
+    'og:title': defaultMetadata.title,
+    'og:description': defaultMetadata.description,
+  };
 };
 
 const HtmlWrapper: FC = ({ children }) => {
