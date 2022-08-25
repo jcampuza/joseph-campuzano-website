@@ -33,7 +33,7 @@ export const socials: Social[] = [
   {
     type: SocialType.linkedIn,
     label: 'LinkedIn',
-    link: 'https://www.linkedin.com/in/josephcampuzano',
+    link: 'https://www.linkedin.com/in/joseph-campuzano/',
   },
   {
     type: SocialType.email,
