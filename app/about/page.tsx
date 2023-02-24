@@ -1,3 +1,9 @@
+import { defaultMetadata } from '@/config/meta';
+
+export const metadata = {
+  title: `About | ${defaultMetadata.title}`,
+};
+
 export default function AboutPage() {
   return (
     <div className="font-sans">

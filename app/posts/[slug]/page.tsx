@@ -1,13 +1,40 @@
 import { PostDetails } from '@/components/PostDetails';
 import { PostTags } from '@/components/PostTags';
+import { defaultMetadata } from '@/config/meta';
 import { getPost, getPosts } from '@/lib/posts';
+import { Metadata } from 'next';
+
+type PostDetailPageParams = { slug: string };
 
 export async function generateStaticParams() {
   const posts = await getPosts();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
-export default async function PostDetailPage({ params: { slug } }: { params: { slug: string } }) {
+export async function generateMetadata({
+  params: { slug },
+}: {
+  params: PostDetailPageParams;
+}): Promise<Metadata> {
+  const post = await getPost(slug);
+
+  return {
+    title: `${post.title} | ${defaultMetadata.title}`,
+
+    description: post.preview,
+
+    openGraph: {
+      title: `${post.title} | ${defaultMetadata.title}`,
+      description: post.preview,
+    },
+  };
+}
+
+export default async function PostDetailPage({
+  params: { slug },
+}: {
+  params: PostDetailPageParams;
+}) {
   const post = await getPost(slug);
 
   return (
