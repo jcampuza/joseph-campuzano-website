@@ -8,6 +8,7 @@ processes = []
 
 [env]
   PORT = "8080"
+  
 
 [experimental]
   allowed_public_ports = []
@@ -28,6 +29,7 @@ processes = []
   [[services.ports]]
     handlers = ["http"]
     port = 80
+    force_https = true
 
   [[services.ports]]
     handlers = ["tls", "http"]
