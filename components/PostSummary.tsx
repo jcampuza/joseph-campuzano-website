@@ -15,7 +15,7 @@ export const PostSummary = (props: PostSummaryProps) => {
   return (
     <article className="py-8 border-b border-gray-400 dark:border-neutral-400">
       <header className="mb-2 flex flex-col">
-        <Link href={props.href} className="text-lg font-mono font-semibold underline mb-2">
+        <Link href={props.href} className="text-lg font-mono focus:underline hover:underline mb-2">
           {props.title}
         </Link>
 
