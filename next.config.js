@@ -4,9 +4,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 module.exports = withBundleAnalyzer({
-  output: 'standalone',
   reactStrictMode: true,
   experimental: {
     appDir: true,
+    serverActions: true,
   },
 });

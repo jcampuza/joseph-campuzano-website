@@ -1,11 +1,10 @@
-export const omit = <T extends Record<string, any>, K extends keyof T>(
+export const pick = <T extends Record<string, unknown>, K extends keyof T>(
   obj: T,
-  ...keys: K[]
-): Omit<T, K> => {
-  const copy = { ...obj };
+  keys: K[],
+): Pick<T, K> => {
+  const res = {} as T;
   for (const key of keys) {
-    delete copy[key];
+    res[key] = obj[key];
   }
-
-  return copy;
+  return res;
 };

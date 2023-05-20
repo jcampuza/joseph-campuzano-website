@@ -2,7 +2,6 @@ import fs from 'fs/promises';
 import matter from 'gray-matter';
 import path from 'path';
 import { mdToHtml } from './mdToHtml';
-import { omit } from './obj';
 import { readingTimeMins } from './readingTime';
 import { z } from 'zod';
 
@@ -20,6 +19,17 @@ const PostSchema = z.object({
 export type IPost = z.infer<typeof PostSchema>;
 
 export type IPostSummary = Omit<IPost, 'html'>;
+
+const postSummaryFromPost = (post: IPost): IPostSummary => {
+  return {
+    preview: post.preview,
+    slug: post.slug,
+    tags: post.tags,
+    timestamp: post.timestamp,
+    timeToReadMins: post.timeToReadMins,
+    title: post.title,
+  };
+};
 
 const postsDir = path.join(process.cwd(), '_posts');
 
@@ -51,13 +61,11 @@ const getPostsFiles = () => {
   return fs.readdir(postsDir);
 };
 
-export const getPosts = async () => {
+export const getPosts = async (): Promise<IPostSummary[]> => {
   const files = await getPostsFiles();
   const posts = await Promise.all(files.map((file) => parsePostFromFileContents(file)));
 
-  return posts
-    .map((post) => omit(post, 'html') as IPostSummary)
-    .sort((a, b) => b.timestamp - a.timestamp);
+  return posts.map((post) => postSummaryFromPost(post)).sort((a, b) => b.timestamp - a.timestamp);
 };
 
 export const getPost = (slug: string) => {
