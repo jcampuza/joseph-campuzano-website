@@ -15,9 +15,11 @@ export const Header = (props: HeaderProps) => {
       )}
     >
       <Container className="flex justify-between">
-        <Link href="/" className="text-md font-mono">
-          Joseph Campuzano
-        </Link>
+        <h1>
+          <Link href="/" className="text-md font-mono">
+            Joseph Campuzano
+          </Link>
+        </h1>
       </Container>
     </header>
   );

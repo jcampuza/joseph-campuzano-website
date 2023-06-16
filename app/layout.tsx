@@ -7,6 +7,8 @@ export const metadata: Metadata = {
 
   description: defaultMetadata.description,
 
+  keywords: ['Joseph Campuzano', 'Software Developer', 'Travel', 'Personal Blog'],
+
   twitter: {
     creator: 'CampuzanoJoe',
     card: 'summary',
