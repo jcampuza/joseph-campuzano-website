@@ -22,9 +22,12 @@
     ]
   },
   "dependencies": {
+    "@vercel/speed-insights": "^1.0.10",
     "gray-matter": "^4.0.3",
-    "next": "latest",
+    "i": "^0.3.7",
+    "next": "^14.1.4",
     "node-html-parser": "^6.1.5",
+    "npm": "^10.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
@@ -33,7 +36,7 @@
     "zod": "^3.16.0"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "latest",
+    "@next/bundle-analyzer": "^14.1.4",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.9",
