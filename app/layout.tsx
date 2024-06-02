@@ -6,6 +6,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 export const metadata: Metadata = {
   title: defaultMetadata.title,
 
+  metadataBase: new URL('https://josephcampuzano.com'),
+
   description: defaultMetadata.description,
 
   keywords: ['Joseph Campuzano', 'Software Developer', 'Travel', 'Personal Blog'],
@@ -13,6 +15,10 @@ export const metadata: Metadata = {
   twitter: {
     creator: 'CampuzanoJoe',
     card: 'summary',
+  },
+
+  alternates: {
+    canonical: '/',
   },
 
   icons: {

@@ -1,5 +1,12 @@
 import { PostSummary } from '@/components/PostSummary';
 import { getPosts } from '@/lib/posts';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+  },
+};
 
 export default async function HomePage() {
   const posts = await getPosts();

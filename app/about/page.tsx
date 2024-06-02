@@ -1,7 +1,11 @@
 import { defaultMetadata } from '@/config/meta';
+import { Metadata } from 'next';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: `About | ${defaultMetadata.title}`,
+  alternates: {
+    canonical: '/about',
+  },
 };
 
 export default function AboutPage() {

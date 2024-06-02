@@ -27,6 +27,10 @@ export async function generateMetadata({
       title: `${post.title} | ${defaultMetadata.title}`,
       description: post.preview,
     },
+
+    alternates: {
+      canonical: `/posts/${post.slug}`,
+    },
   };
 }
 
