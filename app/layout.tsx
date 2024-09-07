@@ -2,6 +2,7 @@ import { defaultMetadata } from '@/config/meta';
 import '@/styles/globals.css';
 import { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Layout } from '@/components/Layout';
 
 export const metadata: Metadata = {
   title: defaultMetadata.title,
@@ -49,8 +50,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-US">
-      <body className="min-h-screen bg-white dark:bg-slate-900 dark:text-neutral-100 transition-colors duration-200 ease-out">
-        {children}
+      <body className="min-h-screen bg-neutral-950 text-slate-200 transition-colors duration-200 ease-out">
+        <Layout>{children}</Layout>
         <SpeedInsights />
       </body>
     </html>

@@ -10,7 +10,7 @@ export const Header = (props: HeaderProps) => {
   return (
     <header
       className={cn(
-        'bg-gradient-to-bl from-pink-900 to-indigo-900 dark:via-neutral-900 text-white shadow-md',
+        'sticky top-0 bg-gray-950/60 backdrop-filter backdrop-blur border-b border-b-violet-700/80',
         props.className,
       )}
     >

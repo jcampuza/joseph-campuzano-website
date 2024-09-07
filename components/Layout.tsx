@@ -21,7 +21,7 @@ export const Layout = (props: { children: React.ReactNode }) => {
       <Header />
       <div className="flex-1">
         <Subheader />
-        <Container className="">{props.children}</Container>
+        <Container>{props.children}</Container>
       </div>
       <Footer />
     </div>

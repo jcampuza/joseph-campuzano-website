@@ -5,7 +5,7 @@ export const Link = ({
   ...rest
 }: LinkProps & { className?: string; children: React.ReactNode }) => {
   return (
-    <NextLink {...rest} className="underline">
+    <NextLink {...rest} className="underline" scroll={false}>
       {children}
     </NextLink>
   );

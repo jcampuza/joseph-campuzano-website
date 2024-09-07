@@ -9,9 +9,7 @@ const getScrollPercentage = (
     return 0;
   }
 
-  const { scrollHeight, clientHeight: scrollElClientHeight, scrollTop } = el;
-
-  return scrollTop / (scrollHeight - scrollElClientHeight);
+  return el.scrollTop / (el.scrollHeight - el.clientHeight);
 };
 
 export const ScrollProgressBar = () => {
@@ -36,9 +34,11 @@ export const ScrollProgressBar = () => {
   }, []);
 
   return (
-    <div
-      ref={scrollElRef}
-      className="fixed top-0 left-0 h-1 w-full bg-blue-700 dark:bg-pink-700 origin-left transition-transform duration-300 scale-x-0"
-    ></div>
+    <div>
+      <div
+        ref={scrollElRef}
+        className="fixed top-0 left-0 h-1 w-full bg-violet-700 origin-left scale-x-0"
+      ></div>
+    </div>
   );
 };

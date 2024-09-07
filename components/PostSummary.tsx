@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { PostDetails } from './PostDetails';
 import { PostTags } from './PostTags';
+import { cn } from '@/lib/cn';
 
 interface PostSummaryProps {
+  className?: string;
   href: string;
   title: string;
   preview: string;
@@ -13,16 +15,18 @@ interface PostSummaryProps {
 
 export const PostSummary = (props: PostSummaryProps) => {
   return (
-    <article className="py-8 border-b border-gray-400 dark:border-neutral-400">
+    <article className={cn('py-8')}>
       <header className="mb-2 flex flex-col">
-        <h2 className="text-lg font-mono focus:underline hover:underline mb-2">
-          <Link href={props.href}>{props.title}</Link>
+        <h2 className="text-lg focus:underline hover:underline mb-2 font-semibold">
+          <Link prefetch={false} href={props.href}>
+            {props.title}
+          </Link>
         </h2>
 
         <PostDetails timeToReadMins={props.timeToReadMins} timestamp={props.timestamp} />
       </header>
 
-      <p className="text-gray-800 dark:text-gray-200 mb-2">{props.preview}</p>
+      <p className="mb-2">{props.preview}</p>
 
       <PostTags tags={props.tags} />
     </article>

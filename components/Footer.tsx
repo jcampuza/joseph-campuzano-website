@@ -44,7 +44,7 @@ const Socials = () => {
 
 export const Footer = () => {
   return (
-    <footer className="bg-gradient-to-bl from-pink-900 to-indigo-900 dark:via-neutral-900  text-white">
+    <footer className="border-t border-t-violet-700/80">
       <Container>
         <Socials />
       </Container>

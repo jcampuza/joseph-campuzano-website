@@ -16,20 +16,25 @@ const PostSchema = z.object({
   tags: z.string().array(),
 });
 
+const PostFrontmatter = z.object({
+  title: z.string(),
+  preview: z.string(),
+  date: z.string().transform((val) => new Date(val).getTime()),
+  tags: z.string().array(),
+});
+
 export type IPost = z.infer<typeof PostSchema>;
 
 export type IPostSummary = Omit<IPost, 'html'>;
 
-const postSummaryFromPost = (post: IPost): IPostSummary => {
-  return {
-    preview: post.preview,
-    slug: post.slug,
-    tags: post.tags,
-    timestamp: post.timestamp,
-    timeToReadMins: post.timeToReadMins,
-    title: post.title,
-  };
-};
+const postSummaryFromPost = (post: IPost): IPostSummary => ({
+  preview: post.preview,
+  slug: post.slug,
+  tags: post.tags,
+  timestamp: post.timestamp,
+  timeToReadMins: post.timeToReadMins,
+  title: post.title,
+});
 
 const postsDir = path.join(process.cwd(), '_posts');
 
@@ -37,29 +42,21 @@ const parsePostFromFileContents = async (file: string): Promise<IPost> => {
   const rawContent = await fs.readFile(path.join(postsDir, file), 'utf-8');
   const slug = file.replace(/\.md$/, '');
   const { content, data } = matter(rawContent);
-  const title = data.title as string;
-  const preview = data.preview as string;
-  const date = new Date(data.date);
-  const tags = data.tags as string[];
+  const frontMatter = PostFrontmatter.parse(data);
   const result = (await mdToHtml(content)).toString();
-  const timeToReadMins = readingTimeMins(result);
 
-  const post = PostSchema.parse({
-    html: result,
-    timeToReadMins,
+  return {
     slug,
-    timestamp: date.getTime(),
-    preview,
-    title,
-    tags,
-  });
-
-  return post;
+    html: result,
+    timeToReadMins: readingTimeMins(result),
+    timestamp: frontMatter.date,
+    preview: frontMatter.preview,
+    title: frontMatter.title,
+    tags: frontMatter.tags,
+  };
 };
 
-const getPostsFiles = () => {
-  return fs.readdir(postsDir);
-};
+const getPostsFiles = () => fs.readdir(postsDir);
 
 export const getPosts = async (): Promise<IPostSummary[]> => {
   const files = await getPostsFiles();
