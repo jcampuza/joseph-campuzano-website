@@ -6,7 +6,7 @@ export const PostTags = (props: PostTagsProps) => {
   return props.tags.length ? (
     <ul className="flex space-x-2">
       {props.tags.map((tag) => (
-        <li key={tag} className="px-2 py-1 bg-violet-900 rounded-sm text-xs">
+        <li key={tag} className="px-3 py-2 bg-neutral-800 rounded-md text-xs">
           {tag}
         </li>
       ))}

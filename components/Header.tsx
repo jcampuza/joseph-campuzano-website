@@ -9,14 +9,11 @@ interface HeaderProps {
 export const Header = (props: HeaderProps) => {
   return (
     <header
-      className={cn(
-        'sticky top-0 bg-gray-950/60 backdrop-filter backdrop-blur border-b border-b-violet-700/80',
-        props.className,
-      )}
+      className={cn('sticky top-0 bg-gray-950/60 backdrop-filter backdrop-blur', props.className)}
     >
       <Container className="flex justify-between">
         <h1>
-          <Link href="/" className="text-md font-mono">
+          <Link href="/" className="text-md">
             Joseph Campuzano
           </Link>
         </h1>

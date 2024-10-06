@@ -14,7 +14,7 @@ export default async function HomePage() {
   return (
     <ul>
       {posts.map((post) => (
-        <li key={post.slug}>
+        <li key={post.slug} className="last:border-b-0 border-b border-neutral-700">
           <PostSummary
             key={post.slug}
             title={post.title}

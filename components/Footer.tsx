@@ -44,7 +44,7 @@ const Socials = () => {
 
 export const Footer = () => {
   return (
-    <footer className="border-t border-t-violet-700/80">
+    <footer>
       <Container>
         <Socials />
       </Container>

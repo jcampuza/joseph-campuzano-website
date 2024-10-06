@@ -2,7 +2,11 @@ import { defaultMetadata } from '@/config/meta';
 import '@/styles/globals.css';
 import { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Layout } from '@/components/Layout';
+import { Analytics } from '@vercel/analytics/react';
+import { Header } from '@/components/Header';
+import { Container } from '@/components/Container';
+import { Link } from '@/components/Link';
+import { Footer } from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: defaultMetadata.title,
@@ -50,9 +54,25 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-US">
-      <body className="min-h-screen bg-neutral-950 text-slate-200 transition-colors duration-200 ease-out">
-        <Layout>{children}</Layout>
+      <body className="min-h-screen bg-neutral-950 text-slate-200 transition-colors duration-200 ease-out selection:bg-fuchsia-800">
+        <div className="min-h-screen flex flex-col justify-start">
+          <div className="flex-1 pt-4 sm:pt-8 pb-16">
+            <Header />
+
+            <Container>
+              <div className="flex space-x-2">
+                <Link href="/">Home</Link>
+                <Link href="/about">About</Link>
+              </div>
+            </Container>
+
+            <Container>{children}</Container>
+          </div>
+          <Footer />
+        </div>
+
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );

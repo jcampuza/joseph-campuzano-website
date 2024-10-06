@@ -1,4 +1,4 @@
-import { config } from './config';
+import { appConfig } from './app-config';
 
 export enum SocialType {
   email = 'email',
@@ -38,6 +38,6 @@ export const socials: Social[] = [
   {
     type: SocialType.email,
     label: 'Email',
-    link: `mailto:${config.email}`,
+    link: `mailto:${appConfig.email}`,
   },
 ];
