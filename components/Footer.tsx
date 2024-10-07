@@ -114,7 +114,7 @@ const Socials = () => {
 
 export const Footer = () => {
   return (
-    <footer>
+    <footer className="border-t border-neutral-700">
       <Container>
         <Socials />
       </Container>
