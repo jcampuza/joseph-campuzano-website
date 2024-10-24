@@ -12,11 +12,13 @@ export async function generateStaticParams() {
   return posts.map((post) => ({ slug: post.slug }));
 }
 
-export async function generateMetadata({
-  params: { slug },
-}: {
-  params: PostDetailPageParams;
+export async function generateMetadata(props: {
+  params: Promise<PostDetailPageParams>;
 }): Promise<Metadata> {
+  const params = await props.params;
+
+  const { slug } = params;
+
   const post = await getPost(slug);
 
   return {
@@ -35,11 +37,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function PostDetailPage({
-  params: { slug },
-}: {
-  params: PostDetailPageParams;
-}) {
+export default async function PostDetailPage(props: { params: Promise<PostDetailPageParams> }) {
+  const params = await props.params;
+
+  const { slug } = params;
+
   const post = await getPost(slug);
 
   return (
